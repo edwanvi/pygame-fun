@@ -1,4 +1,5 @@
 import pygame
+import random
 from SPRITES.spritesheet_functions import SpriteSheet
 from SPRITES import constants, collectables
 
@@ -38,12 +39,11 @@ class Boss(pygame.sprite.Sprite):
             self.change_y = 0
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
 
-class EnergyPulse(pygame.sprite.Sprite):
-    def __init__(self, sprite_sheet_data):
+class GasterBlaster(pygame.sprite.Sprite):
+    def __init__(self, x, y, direction):
         super().__init__()
         self.origin_x = 0
         self.origin_y = 0
-        self.size = 0
 
 class BossW1(Boss):
     def __init__(self):
@@ -60,3 +60,19 @@ class BossW1(Boss):
             flame = collectables.EnemyFire(run, rise, self.player)
             flame.rect.x = self.rect.x
             flame.rect.y = self.rect.y
+    #HEY YOUNG BLOOD
+    def attack2(self):
+        #DOESN'T IT FEEL
+        gasterx = self.player.rect.x
+        gastery= self.player.y
+        gasterxlogic = bool(random.getrandbits(1))
+        gasterFaceLeftBool = bool(random.getrandbits(1))
+        if gasterFaceLeftBool:
+            gasteryDirection = "left"
+        else:
+            gasteryDirection= "right"
+        if gasterxlogic:
+            print("BLAST IT")
+            return GasterBlaster(gasterx, 0, "up")
+        else:
+            return GasterBlaster(0, gastery, gasteryDirection)

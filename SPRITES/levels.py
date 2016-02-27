@@ -9,6 +9,7 @@ class Level:
         #Meet the construction crew.
         self.platform_list = None
         self.enemy_list = None
+        self.boss_list = None
         self.coin_list = None
         self.other_list = None
         self.health_drops = None

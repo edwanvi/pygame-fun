@@ -76,3 +76,10 @@ class BossW1(Boss):
             return GasterBlaster(gasterx, 0, "up")
         else:
             return GasterBlaster(0, gastery, gasteryDirection)
+    def Run(self):
+        #LIKE OUR TIME IS RUNNING OUT
+        attacknumber = random.randint(0, 1)
+        if attacknumber == 0:
+            self.attack1()
+        elif attacknumber == 1:
+            self.attack2()

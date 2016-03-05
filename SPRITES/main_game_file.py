@@ -1,4 +1,5 @@
 #CORE FILE FOR GAME
+#useless comment
 
 import pygame
 from SPRITES import constants, levels

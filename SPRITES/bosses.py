@@ -20,7 +20,7 @@ class Boss(pygame.sprite.Sprite):
         self.player = None
 
         sprite_sheet = SpriteSheet("boss_sheet.png")
-        # we use the same formula as the platforms here: X location of sprite, Y location of sprite, Width of sprite,
+        #We use the same formula as the platforms here: X location of sprite, Y location of sprite, Width of sprite,
         #Height of sprite
         self.image = sprite_sheet.get_image(sprite_sheet_data[0],
                                             sprite_sheet_data[1],
@@ -33,21 +33,49 @@ class Boss(pygame.sprite.Sprite):
             self.change_y = 1
         else:
             self.change_y += .35
-
         #see if we are on the bottom of the screen.
         if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
             self.change_y = 0
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
 
-class GasterBlaster(pygame.sprite.Sprite):
-    def __init__(self, x, y, direction):
+
+class GasterBlast(pygame.sprite.Sprite):
+    def __init__(self, x, y, player):
         super().__init__()
-        self.origin_x = 0
-        self.origin_y = 0
+        sheet = SpriteSheet("gaster_sheet.png")
+        self.image = sheet.get_image()
+        self.rect = self.image.get_rect()
+        self.updates = 0
+
+    def update(self):
+        self.updates += 1
+        if self.updates > 85:
+            self.kill()
+
+
+class GasterBlaster(pygame.sprite.Sprite):
+    def __init__(self, x, y, direction, player):
+        super().__init__()
+        sheet = SpriteSheet("gaster_sheet.png")
+        self.firing = False
+        self.Fired = False
+
+    def update(self):
+        if not self.Fired:
+            if self.direction == "left":
+                #shoot left
+                return GasterBlast(self.rect.x + 10, self.rect.y, self.player)
+            if self.direction == "right":
+                #shoot right
+                return GasterBlast(self.rect.x - 10, self.rect.y, self.player)
+            if self.direction == "up":
+                #shoot up
+                return GasterBlast(self.rect.x, self.rect.y + 10, self.player)
+
 
 class BossW1(Boss):
-    def __init__(self):
-        sprite_sheet_data = ()
+    def __init__(self, player):
+        sprite_sheet_data = ([0, 0, 32, 32])
         super().__init__(sprite_sheet_data)
 
     def attack1(self):
@@ -60,7 +88,8 @@ class BossW1(Boss):
             flame = collectables.EnemyFire(run, rise, self.player)
             flame.rect.x = self.rect.x
             flame.rect.y = self.rect.y
-    #HEY YOUNG BLOOD
+
+    #Use a gaster blaster on the player
     def attack2(self):
         #DOESN'T IT FEEL
         gasterx = self.player.rect.x
@@ -73,9 +102,13 @@ class BossW1(Boss):
             gasteryDirection= "right"
         if gasterxlogic:
             print("BLAST IT")
-            return GasterBlaster(gasterx, 0, "up")
-        else:
-            return GasterBlaster(0, gastery, gasteryDirection)
+            return GasterBlaster(gasterx, 0, "up", self.player)
+        elif gasteryDirection == "right":
+            print("BLAST IT")
+            return GasterBlaster(0, gastery, gasteryDirection, self.player)
+        elif gasteryDirection == "left":
+            print("BLAST IT")
+            return GasterBlaster(850, gastery, gasteryDirection, self.player)
     def Run(self):
         #LIKE OUR TIME IS RUNNING OUT
         attacknumber = random.randint(0, 1)

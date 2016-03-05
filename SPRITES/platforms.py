@@ -1,4 +1,4 @@
-# Platforms you can jump off of
+# Platforms you can jump off of, what did you expect
 
 import pygame
 from SPRITES.spritesheet_functions import SpriteSheet
@@ -11,6 +11,7 @@ from SPRITES.spritesheet_functions import SpriteSheet
 #   Height of sprite
 GRASS = (0, 0, 70, 70)
 STONE = (71, 0, 70, 70)
+OBSIDIAN = (142, 71, 70, 70)
 
 
 class Platform(pygame.sprite.Sprite):
@@ -26,6 +27,7 @@ class Platform(pygame.sprite.Sprite):
                                             sprite_sheet_data[3])
 
         self.rect = self.image.get_rect()
+
 
 class MovingPlatform(Platform):
     #SO YOU MEAN TO TELL ME

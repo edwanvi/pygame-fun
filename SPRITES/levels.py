@@ -194,3 +194,4 @@ class BossRoom_1(Level):
         Level.__init__(self, player)
         self.background = pygame.image.load("boss_1.png").convert()
         self.background.set_colorkey(SPRITES.constants.WHITE)
+        self.level_limit = -1600

@@ -109,4 +109,4 @@ $RECYCLE.BIN/
 *.lnk
 *.pyc
 
-**/SPRITES/__pycache__
+**/SPRITES/__pycache__/

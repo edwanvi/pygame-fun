@@ -1,7 +1,7 @@
 # Platforms you can jump off of, what did you expect
 
 import pygame
-from SPRITES.spritesheet_functions import SpriteSheet
+from spritesheet_functions import SpriteSheet
 
 # To define a type of platform, we use the formula
 #   Name of file

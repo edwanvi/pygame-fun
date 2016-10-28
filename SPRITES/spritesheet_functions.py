@@ -1,8 +1,7 @@
 # Space orbit in my space suit
 
 import pygame
-import SPRITES.constants
-
+import constants
 
 class SpriteSheet(object):
     def __init__(self, file_name):
@@ -17,6 +16,6 @@ class SpriteSheet(object):
         # sheet, location to copy to, location to copy from
         image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
         # We need to change what "transparent" is
-        image.set_colorkey(SPRITES.constants.GREY)
+        image.set_colorkey(constants.GREY)
         # aaand send it to space. "Orbit. Space orbit. In my spacesuit."
         return image

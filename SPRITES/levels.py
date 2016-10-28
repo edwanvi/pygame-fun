@@ -1,7 +1,7 @@
 import pygame
-import SPRITES.platforms
-import SPRITES.constants
-import SPRITES.collectables
+import platforms
+import constants
+import collectables
 
 class Level:
     #This is a blank level. Use at own risk.
@@ -70,32 +70,32 @@ class Level_01(Level):
         Level.__init__(self, player)
         #Set background image
         self.background = pygame.image.load("background_01.png").convert()
-        self.background.set_colorkey(SPRITES.constants.WHITE)
+        self.background.set_colorkey(constants.WHITE)
         self.level_limit = -2500
 
         level = [
-                  [SPRITES.platforms.GRASS, 500, 500],
-                  [SPRITES.platforms.GRASS, 570, 500],
-                  [SPRITES.platforms.GRASS, 640, 500],
-                  [SPRITES.platforms.GRASS, 800, 400],
-                  [SPRITES.platforms.GRASS, 870, 400],
-                  [SPRITES.platforms.GRASS, 940, 400],
-                  [SPRITES.platforms.GRASS, 1000, 500],
-                  [SPRITES.platforms.GRASS, 1070, 500],
-                  [SPRITES.platforms.GRASS, 1140, 500],
-                  [SPRITES.platforms.STONE, 1120, 280],
-                  [SPRITES.platforms.STONE, 1190, 280],
-                  [SPRITES.platforms.STONE, 1260, 280],
+                  [platforms.GRASS, 500, 500],
+                  [platforms.GRASS, 570, 500],
+                  [platforms.GRASS, 640, 500],
+                  [platforms.GRASS, 800, 400],
+                  [platforms.GRASS, 870, 400],
+                  [platforms.GRASS, 940, 400],
+                  [platforms.GRASS, 1000, 500],
+                  [platforms.GRASS, 1070, 500],
+                  [platforms.GRASS, 1140, 500],
+                  [platforms.STONE, 1120, 280],
+                  [platforms.STONE, 1190, 280],
+                  [platforms.STONE, 1260, 280],
         ]
         #Add platforms from the level list
         for platform in level:
-            block = SPRITES.platforms.Platform(platform[0])
+            block = platforms.Platform(platform[0])
             block.rect.x = platform[1]
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
         #Add a moving platform
-        block = SPRITES.platforms.MovingPlatform(SPRITES.platforms.STONE)
+        block = platforms.MovingPlatform(platforms.STONE)
         block.rect.x = 1350
         block.rect.y = 280
         block.boundary_left = 1350

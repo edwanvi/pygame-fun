@@ -2,8 +2,8 @@
 #useless comment
 
 import pygame
-from SPRITES import constants, levels
-from SPRITES.player import Player
+import constants, levels
+from player import Player
 import time
 
 def main():

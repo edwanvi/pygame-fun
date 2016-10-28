@@ -1,6 +1,6 @@
 import pygame
-from SPRITES.spritesheet_functions import SpriteSheet
-from SPRITES import constants, platforms
+from spritesheet_functions import SpriteSheet
+import constants, platforms
 import random
 import time
 

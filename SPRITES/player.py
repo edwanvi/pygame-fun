@@ -1,7 +1,7 @@
 #This file holds the player class
 import pygame
-from SPRITES import constants, spritesheet_functions, collectables
-from SPRITES.platforms import MovingPlatform
+import constants, spritesheet_functions, collectables
+from platforms import MovingPlatform
 
 
 class Player(pygame.sprite.Sprite):

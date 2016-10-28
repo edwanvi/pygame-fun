@@ -104,6 +104,10 @@ class Level_01(Level):
         block.player = self.player
         block.level = self
         self.platform_list.add(block)
+        # testing fancy new platform technology
+        fancyblock = platforms.BetterPlatform(platforms.GRASS, 1400, 300)
+        fancyblock.set_pos()
+        self.platform_list.add(fancyblock)
         #Add a enemy
         enemy = collectables.Basic_Enemy()
         enemy.rect.x = 570

@@ -15,10 +15,8 @@ OBSIDIAN = (142, 71, 70, 70)
 
 
 class Platform(pygame.sprite.Sprite):
-
     def __init__(self, sprite_sheet_data):
         super().__init__()
-
         sprite_sheet = SpriteSheet("platform_sheet.png")
         # Grab the image for this platform
         self.image = sprite_sheet.get_image(sprite_sheet_data[0],
@@ -28,12 +26,10 @@ class Platform(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
-
 class MovingPlatform(Platform):
     #SO YOU MEAN TO TELL ME
     #THIS ONE MOVES?!
     def __init__(self, sprite_sheet_data):
-
         super().__init__(sprite_sheet_data)
 
         self.change_x = 0
@@ -78,3 +74,20 @@ class MovingPlatform(Platform):
         cur_pos = self.rect.x - self.level.world_shift
         if cur_pos < self.boundary_left or cur_pos > self.boundary_right:
             self.change_x *= -1
+
+class BetterPlatform(pygame.sprite.Sprite):
+    """A version of `Platform` that figures out where it's supposed to go on its own."""
+    def __init__(self, sprite_sheet_data, x=0, y=0):
+        super().__init__()
+        sprite_sheet = SpriteSheet("platform_sheet.png")
+        # Grab the image for this platform
+        self.image = sprite_sheet.get_image(sprite_sheet_data[0], sprite_sheet_data[1], sprite_sheet_data[2], sprite_sheet_data[3])
+        # This platform can set its own position based on passed-in args
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+    def set_pos(self):
+        # Set out rect x and y based on properties given at birth
+        # if you will
+        self.rect.x = self.x
+        self.rect.y = self.y

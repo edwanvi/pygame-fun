@@ -108,5 +108,3 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 *.pyc
-
-**/SPRITES/__pycache__/

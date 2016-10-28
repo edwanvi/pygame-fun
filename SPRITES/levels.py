@@ -36,7 +36,7 @@ class Level:
     def draw(self, screen):
         #Draw the background
         #and don't shift it about as much as the level (thus creating depth)
-        screen.fill(SPRITES.constants.BLUE)
+        screen.fill(constants.BLUE)
         screen.blit(self.background,(self.world_shift // 3,0))
 
         #Draw everything we have to draw (sprites)
@@ -105,7 +105,7 @@ class Level_01(Level):
         block.level = self
         self.platform_list.add(block)
         #Add a enemy
-        enemy = SPRITES.collectables.Basic_Enemy()
+        enemy = collectables.Basic_Enemy()
         enemy.rect.x = 570
         enemy.rect.y = 400
         enemy.change_x = -1
@@ -113,52 +113,51 @@ class Level_01(Level):
         enemy.level = self
         self.enemy_list.add(enemy)
         #add 2 coins
-        coin = SPRITES.collectables.Coin()
+        coin = collectables.Coin()
         coin.rect.x = 400
         coin.rect.y = 280
         self.coin_list.add(coin)
-        coin = SPRITES.collectables.Coin()
+        coin = collectables.Coin()
         coin.rect.x = 1600
         coin.rect.y = 310
         self.coin_list.add(coin)
         #add a mana drop
-        mana = SPRITES.collectables.ManaDrop()
+        mana = collectables.ManaDrop()
         mana.rect.x = 420
         mana.rect.y = 280
         self.mana_drops.add(mana)
-
 
 #1-2
 class Level_02(Level):
     def __init__(self, player):
         Level.__init__(self, player)
         self.background = pygame.image.load("background_02.png").convert()
-        self.background.set_colorkey(SPRITES.constants.WHITE)
+        self.background.set_colorkey(constants.WHITE)
         self.level_limit = -1600
         #Define a platform. [type, x, y]
         level = [
-                  [SPRITES.platforms.STONE, 500, 550],
-                  [SPRITES.platforms.STONE, 570, 550],
-                  [SPRITES.platforms.STONE, 640, 550],
-                  [SPRITES.platforms.GRASS, 800, 400],
-                  [SPRITES.platforms.GRASS, 870, 400],
-                  [SPRITES.platforms.GRASS, 940, 400],
-                  [SPRITES.platforms.GRASS, 1000, 500],
-                  [SPRITES.platforms.GRASS, 1070, 500],
-                  [SPRITES.platforms.GRASS, 1140, 500],
-                  [SPRITES.platforms.STONE, 1120, 280],
-                  [SPRITES.platforms.STONE, 1190, 280],
-                  [SPRITES.platforms.STONE, 1260, 280],
+                  [platforms.STONE, 500, 550],
+                  [platforms.STONE, 570, 550],
+                  [platforms.STONE, 640, 550],
+                  [platforms.GRASS, 800, 400],
+                  [platforms.GRASS, 870, 400],
+                  [platforms.GRASS, 940, 400],
+                  [platforms.GRASS, 1000, 500],
+                  [platforms.GRASS, 1070, 500],
+                  [platforms.GRASS, 1140, 500],
+                  [platforms.STONE, 1120, 280],
+                  [platforms.STONE, 1190, 280],
+                  [platforms.STONE, 1260, 280],
         ]
         for platform in level:
-            block = SPRITES.platforms.Platform(platform[0])
+            block = platforms.Platform(platform[0])
             block.rect.x = platform[1]
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
 
         #Add a moving platform.
-        block = SPRITES.platforms.MovingPlatform(SPRITES.platforms.STONE)
+        block = platforms.MovingPlatform(platforms.STONE)
         block.rect.x = 1500
         block.rect.y = 300
         block.boundary_top = 100
@@ -167,17 +166,17 @@ class Level_02(Level):
         block.player = self.player
         block.level = self
         self.platform_list.add(block)
-        coin = SPRITES.collectables.Coin()
+        coin = collectables.Coin()
         coin.rect.x = 400
         coin.rect.y = 280
         self.coin_list.add(coin)
         #Health to heal
-        heal = SPRITES.collectables.HPBoost()
+        heal = collectables.HPBoost()
         heal.rect.x = 1520
         heal.rect.y = 85
         self.health_drops.add(heal)
         #GHAST GOES SHOOT
-        enemy = SPRITES.collectables.GhastlyBlimp()
+        enemy = collectables.GhastlyBlimp()
         enemy.level = self
         enemy.player = self.player
         enemy.rect.x = 1400

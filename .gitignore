@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-**/SPRITES/__pycache__/
 
 # C extensions
 *.so
@@ -109,3 +108,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 *.pyc
+
+# Gimp files
+*.xcf

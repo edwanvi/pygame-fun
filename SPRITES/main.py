@@ -9,7 +9,7 @@ def main():
     font = pygame.font.Font(None, 36)
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
-    pygame.display.set_caption('1-4 GRAVITY')
+    pygame.display.set_caption('the game begins')
     text = pygame.font.Font('C:\Windows\Fonts\Minecraftia.ttf', 20)
     cycles = 0
 

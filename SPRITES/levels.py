@@ -92,9 +92,8 @@ class Level_01(Level):
         ]
         # Add platforms from the level list
         for platform in level:
-            block = platforms.Platform(platform[0])
-            block.rect.x = platform[1]
-            block.rect.y = platform[2]
+            block = platforms.BetterPlatform(platform[0], platform[1], platform[2])
+            block.set_pos()
             block.player = self.player
             self.platform_list.add(block)
         # Add a moving platform

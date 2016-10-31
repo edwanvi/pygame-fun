@@ -1,6 +1,4 @@
-#CORE FILE FOR GAME
-#useless comment
-
+# CORE FILE FOR GAME
 import pygame
 import constants, levels
 from player import Player
@@ -22,6 +20,7 @@ def main():
     level_list = []
     level_list.append(levels.Level_01(player))
     level_list.append(levels.Level_02(player))
+    level_list.append(levels.BossRoom_1(player))
 
     current_level_no = 0
     current_level = level_list[current_level_no]
@@ -104,9 +103,9 @@ def main():
             elif current_level.bossroom == False:
                 # END THE GAME IN THE MOST ELABORATE FREAKING WAY POSSIBLE
                 game_over = True
-            else:
-                # boss rooms give no craps
-                pass
+        elif current_level.bossroom and current_position < current_level.level_limit:
+            # boss rooms give no craps
+            player.rect.x = -800
         #Keeping the player away from the edges
         if player.rect.right > constants.SCREEN_WIDTH:
             player.rect.right = constants.SCREEN_WIDTH
@@ -117,11 +116,11 @@ def main():
         current_level.draw(screen)
         current_level.coin_list.draw(screen)
         active_sprite_list.draw(screen)
-        textsurf = text.render('Score: ' + str(score), True, constants.WHITE)
+        textsurf = text.render('Score: ' + str(score), True, constants.BLACK)
         screen.blit(textsurf, [10, 10])
-        healthsurf = text.render('HP: ' + str(player.health), True, constants.WHITE)
+        healthsurf = text.render('HP: ' + str(player.health), True, constants.BLACK)
         screen.blit(healthsurf, [10, 35])
-        manasurf = text.render('Mana: ' + str(player.mana), True, constants.WHITE)
+        manasurf = text.render('Mana: ' + str(player.mana), True, constants.BLACK)
         screen.blit(manasurf, [10, 55])
         if game_over:
             screen.fill(constants.BLACK)

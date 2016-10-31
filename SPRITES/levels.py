@@ -194,9 +194,11 @@ class BossRoom_1(Level):
     def __init__(self, player):
         Level.__init__(self, player)
         self.background = pygame.image.load("boss_1.png").convert()
-        self.background.set_colorkey(SPRITES.constants.WHITE)
+        self.background.set_colorkey(constants.RED)
         self.level_limit = -800
         self.bossroom = True
-        level = []
+        level = [
+            [platforms.OBSIDIAN, 0, 0]
+        ]
         for platform in level:
             block = platforms.BetterPlatform(platform[0], platform[1], platform[2])

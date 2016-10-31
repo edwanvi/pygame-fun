@@ -40,14 +40,12 @@ class Boss(pygame.sprite.Sprite):
 
 
 class GasterBlast(pygame.sprite.Sprite):
-    def __init__(self, x, y, player, cx, cy):
+    def __init__(self, player, cx, cy):
         super().__init__()
         # Get image
         sheet = SpriteSheet("gaster_sheet.png")
         self.image = sheet.get_image(16, 296, 132, 44)
         self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = 0
         self.updates = 0
         # Get a player so we can rough 'em up
         self.player = player
@@ -57,6 +55,10 @@ class GasterBlast(pygame.sprite.Sprite):
         # movement
         self.change_x = cx
         self.change_y = cy
+        if self.change_y > 0:
+            newimage = pygame.transform.rotate(self.image, -90)
+            self.image = newimage
+            self.rect = self.image.get_rect()
 
     def position(self, x, y):
         self.rect.x = x
@@ -79,6 +81,7 @@ class GasterBlaster(pygame.sprite.Sprite):
         sheet = SpriteSheet("gaster_sheet.png")
         self.image = sheet.get_image(28, 8, 140, 192)
         self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = (x, y)
         self.firing = False
         self.Fired = False
         self.direction = None
@@ -100,8 +103,8 @@ class GasterBlaster(pygame.sprite.Sprite):
                 pass
                 #return GasterBlast(self.rect.x, self.rect.y + 10, self.player)
             else:
-                gblast = GasterBlast(self.rect.x, self.rect.y - 192, self.player, 0, 10)
-                gblast.position(self.rect.x, self.rect.y + 192)
+                gblast = GasterBlast(self.player, 0, 10)
+                gblast.position(self.rect.x + 70 - 22, self.rect.y + 192)
                 self.level.enemy_list.add(gblast)
             self.Fired = True
         else:
@@ -126,7 +129,6 @@ class BossW1(Boss):
 
     #Use a gaster blaster on the player
     def attack2(self):
-        #DOESN'T IT FEEL
         gasterx = self.player.rect.x
         gastery= self.player.y
         gasterxlogic = bool(random.getrandbits(1))
@@ -145,7 +147,6 @@ class BossW1(Boss):
             print("BLAST IT")
             return GasterBlaster(850, gastery, gasteryDirection, self.player)
     def Run(self):
-        #LIKE OUR TIME IS RUNNING OUT
         attacknumber = random.randint(0, 1)
         if attacknumber == 0:
             self.attack1()

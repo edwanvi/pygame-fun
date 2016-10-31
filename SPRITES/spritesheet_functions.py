@@ -1,5 +1,3 @@
-# Space orbit in my space suit
-
 import pygame
 import constants
 

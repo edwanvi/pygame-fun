@@ -13,14 +13,12 @@ GRASS = (0, 0, 70, 70)
 STONE = (71, 0, 70, 70)
 OBSIDIAN = (142, 71, 70, 70)
 
-
 class Platform(pygame.sprite.Sprite):
     def __init__(self, sprite_sheet_data):
         super().__init__()
         sprite_sheet = SpriteSheet("platform_sheet.png")
         # Grab the image for this platform
         self.image = sprite_sheet.get_image(sprite_sheet_data[0], sprite_sheet_data[1], sprite_sheet_data[2], sprite_sheet_data[3])
-
         self.rect = self.image.get_rect()
 
 class MovingPlatform(Platform):
@@ -41,12 +39,10 @@ class MovingPlatform(Platform):
         self.player = None
 
     def update(self):
-        #DON'T PUSH A PLAYER INTO AN OBSTACLE
-
-        #LEFT AND RIGHT
+        # DON'T PUSH A PLAYER INTO AN OBSTACLE
+        # LEFT AND RIGHT
         self.rect.x += self.change_x
-
-        #See if we hit the player and shove 'em around
+        # See if we hit the player and shove 'em around
         hit = pygame.sprite.collide_rect(self, self.player)
         if hit:
             if self.change_x < 0:
@@ -55,7 +51,7 @@ class MovingPlatform(Platform):
                 self.player.rect.left = self.rect.right
 
         self.rect.y += self.change_y
-        #Shoving players!
+        # Shoving players!
         hit = pygame.sprite.collide_rect(self, self.player)
         if hit:
             if self.change_y < 0:

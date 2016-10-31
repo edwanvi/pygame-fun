@@ -82,7 +82,7 @@ def main():
         # Update items in the level
         cycles += 1
         current_level.update()
-        #Scrolling
+        # Scrolling
         if player.rect.right >= 500:
             diff = player.rect.right - 500
             player.rect.right = 500
@@ -91,9 +91,9 @@ def main():
             diff = 120 - player.rect.left
             player.rect.left = 120
             current_level.shift_world(diff)
-        #End the level and move on at the goal
+        # End the level and move on at the goal
         current_position = player.rect.x + current_level.world_shift
-        if current_position < current_level.level_limit:
+        if current_position < current_level.level_limit and current_level.bossroom == False:
             if current_level_no < len(level_list)-1:
                 for fire in current_level.other_list:
                     fire.kill()
@@ -101,17 +101,19 @@ def main():
                 current_level_no += 1
                 current_level = level_list[current_level_no]
                 player.level = current_level
-            else:
-                #END THE GAME IN THE MOST ELABORATE FREAKING WAY POSSIBLE
+            elif current_level.bossroom == False:
+                # END THE GAME IN THE MOST ELABORATE FREAKING WAY POSSIBLE
                 game_over = True
+            else:
+                # boss rooms give no craps
+                pass
         #Keeping the player away from the edges
         if player.rect.right > constants.SCREEN_WIDTH:
             player.rect.right = constants.SCREEN_WIDTH
         elif player.rect.left < 0:
             player.rect.left = 0
 
-        #ALL DRAWING BELOW THIS LINE
-
+        # ALL DRAWING BELOW THIS LINE
         current_level.draw(screen)
         current_level.coin_list.draw(screen)
         active_sprite_list.draw(screen)

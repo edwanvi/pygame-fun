@@ -6,7 +6,8 @@ import collectables
 class Level:
     #This is a blank level. Use at own risk.
     def __init__(self, player):
-        #Meet the construction crew.
+        # In order:
+        # List of platforms, list of enemies, list of coins, list of other sh*t, list of health_drops and finally a list of mana_drops
         self.platform_list = None
         self.enemy_list = None
         self.boss_list = None
@@ -14,10 +15,10 @@ class Level:
         self.other_list = None
         self.health_drops = None
         self.mana_drops = None
-        #BG Image
+        # BG Image
         self.background = None
 
-        #World scrolling variables
+        # World scrolling variables
         self.world_shift = 0
         self.level_limit = -1000
         self.platform_list = pygame.sprite.Group()
@@ -47,10 +48,10 @@ class Level:
         self.health_drops.draw(screen)
 
     def shift_world(self, shift_x):
-        #Scroll through everything
+        # Scroll through everything
         self.world_shift += shift_x
 
-        #Move everything around on the screen
+        # Move everything around on the screen
         for platform in self.platform_list:
             platform.rect.x += shift_x
         for enemy in self.enemy_list:
@@ -64,7 +65,7 @@ class Level:
         for heal in self.health_drops:
             heal.rect.x += shift_x
 
-#Create World 1-1
+# Create World 1-1
 class Level_01(Level):
     def __init__(self, player):
         Level.__init__(self, player)
@@ -87,14 +88,14 @@ class Level_01(Level):
                   [platforms.STONE, 1190, 280],
                   [platforms.STONE, 1260, 280],
         ]
-        #Add platforms from the level list
+        # Add platforms from the level list
         for platform in level:
             block = platforms.Platform(platform[0])
             block.rect.x = platform[1]
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
-        #Add a moving platform
+        # Add a moving platform
         block = platforms.MovingPlatform(platforms.STONE)
         block.rect.x = 1350
         block.rect.y = 280
@@ -104,11 +105,7 @@ class Level_01(Level):
         block.player = self.player
         block.level = self
         self.platform_list.add(block)
-        # testing fancy new platform technology
-        fancyblock = platforms.BetterPlatform(platforms.GRASS, 1400, 300)
-        fancyblock.set_pos()
-        self.platform_list.add(fancyblock)
-        #Add a enemy
+        # Add an enemy
         enemy = collectables.Basic_Enemy()
         enemy.rect.x = 570
         enemy.rect.y = 400
@@ -116,7 +113,7 @@ class Level_01(Level):
         enemy.change_y = 0
         enemy.level = self
         self.enemy_list.add(enemy)
-        #add 2 coins
+        # add 2 coins
         coin = collectables.Coin()
         coin.rect.x = 400
         coin.rect.y = 280
@@ -125,20 +122,20 @@ class Level_01(Level):
         coin.rect.x = 1600
         coin.rect.y = 310
         self.coin_list.add(coin)
-        #add a mana drop
+        # add a mana drop
         mana = collectables.ManaDrop()
         mana.rect.x = 420
         mana.rect.y = 280
         self.mana_drops.add(mana)
 
-#1-2
+# 1-2
 class Level_02(Level):
     def __init__(self, player):
         Level.__init__(self, player)
         self.background = pygame.image.load("background_02.png").convert()
         self.background.set_colorkey(constants.WHITE)
         self.level_limit = -1600
-        #Define a platform. [type, x, y]
+        # Define platforms. [type, x, y]
         level = [
                   [platforms.STONE, 500, 550],
                   [platforms.STONE, 570, 550],
@@ -160,7 +157,7 @@ class Level_02(Level):
             block.player = self.player
             self.platform_list.add(block)
 
-        #Add a moving platform.
+        # Add a moving platform.
         block = platforms.MovingPlatform(platforms.STONE)
         block.rect.x = 1500
         block.rect.y = 300
@@ -174,12 +171,12 @@ class Level_02(Level):
         coin.rect.x = 400
         coin.rect.y = 280
         self.coin_list.add(coin)
-        #Health to heal
+        # Health to heal
         heal = collectables.HPBoost()
         heal.rect.x = 1520
         heal.rect.y = 85
         self.health_drops.add(heal)
-        #GHAST GOES SHOOT
+        # GHAST GOES SHOOT
         enemy = collectables.GhastlyBlimp()
         enemy.level = self
         enemy.player = self.player
@@ -197,4 +194,8 @@ class BossRoom_1(Level):
         Level.__init__(self, player)
         self.background = pygame.image.load("boss_1.png").convert()
         self.background.set_colorkey(SPRITES.constants.WHITE)
-        self.level_limit = -1600
+        self.level_limit = -800
+        self.bossroom = True
+        level = []
+        for platform in level:
+            block = platforms.BetterPlatform(platform[0], platform[1], platform[2])

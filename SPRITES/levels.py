@@ -28,6 +28,8 @@ class Level:
         self.mana_drops = pygame.sprite.Group()
         self.health_drops = pygame.sprite.Group()
         self.player = player
+        # whether or not a level is a bossroom. this is false by default.
+        self.bossroom = False
 
     def update(self):
         """ Update everything in this level."""

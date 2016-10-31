@@ -210,7 +210,7 @@ class GhastlyBlimp(pygame.sprite.Sprite):
         if self.rect.bottom > self.boundary_bottom or self.rect.top < self.boundary_top:
             self.change_y *= -1
         #If we are on the same Y level as the player, FIRE!
-        if self.rect.y + 10 > self.player.rect.y and self.rect.y - 10 < self.player.rect.y:
+        if self.rect.y + 10 > self.player.rect.y and self.rect.y - 10 < self.player.rect.y and self.firing == False:
             if self.direction == 'L':
                 self.image = self.frames_l[1]
                 self.firing = True

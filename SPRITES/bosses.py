@@ -1,7 +1,7 @@
 import pygame
 import random
-from SPRITES.spritesheet_functions import SpriteSheet
-from SPRITES import constants, collectables
+from spritesheet_functions import SpriteSheet
+import constants, collectables
 
 
 # Basic boss. subclass to make it your own!
@@ -71,6 +71,10 @@ class GasterBlaster(pygame.sprite.Sprite):
             if self.direction == "up":
                 #shoot up
                 return GasterBlast(self.rect.x, self.rect.y + 10, self.player)
+            self.Fired = True
+        else:
+            # die
+            self.kill()
 
 
 class BossW1(Boss):

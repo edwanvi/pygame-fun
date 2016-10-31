@@ -2,6 +2,7 @@ import pygame
 import platforms
 import constants
 import collectables
+import bosses
 
 class Level:
     #This is a blank level. Use at own risk.

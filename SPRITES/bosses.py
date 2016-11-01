@@ -88,7 +88,7 @@ class GasterBlaster(pygame.sprite.Sprite):
         self.rect.x, self.rect.y = (x, y)
         self.firing = False
         self.Fired = False
-        self.direction = None
+        self.direction = direction
         self.player = player
         self.level = None
         self.updates = 0

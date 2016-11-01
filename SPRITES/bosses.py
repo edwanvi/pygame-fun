@@ -59,6 +59,10 @@ class GasterBlast(pygame.sprite.Sprite):
             newimage = pygame.transform.rotate(self.image, -90)
             self.image = newimage
             self.rect = self.image.get_rect()
+        elif self.change_y < 0:
+            newimage = pygame.transform.rotate(self.image, 90)
+            self.image = newimage
+            self.rect = self.image.get_rect()
 
     def position(self, x, y):
         self.rect.x = x
@@ -87,29 +91,33 @@ class GasterBlaster(pygame.sprite.Sprite):
         self.direction = None
         self.player = player
         self.level = None
+        self.updates = 0
 
     def update(self):
-        if not self.Fired:
+        self.updates += 1
+        if not self.Fired and self.updates > 10:
             if self.direction == "left":
                 #shoot left
                 pass
                 #return GasterBlast(self.rect.x + 10, self.rect.y, self.player)
-            if self.direction == "right":
+            elif self.direction == "right":
                 #shoot right
                 pass
                 #return GasterBlast(self.rect.x - 10, self.rect.y, self.player)
-            if self.direction == "up":
-                #shoot up
-                pass
-                #return GasterBlast(self.rect.x, self.rect.y + 10, self.player)
+            elif self.direction == "up":
+                # shoot up
+                gblast = GasterBlast(self.player, 0, -10)
+                gblast.position(self.rect.x+70-22, self.rect.y - 192)
+                self.level.enemy_list.add(gblast)
             else:
                 gblast = GasterBlast(self.player, 0, 10)
                 gblast.position(self.rect.x + 70 - 22, self.rect.y + 192)
                 self.level.enemy_list.add(gblast)
             self.Fired = True
+        elif self.Fired:
+            self.kill()
         else:
             pass
-            #self.kill()
 
 class BossW1(Boss):
     def __init__(self, player):

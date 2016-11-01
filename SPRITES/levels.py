@@ -36,11 +36,12 @@ class Level:
         """ Update everything in this level."""
         self.platform_list.update()
         self.enemy_list.update()
+        self.other_list.update()
 
     def draw(self, screen):
         #Draw the background
         #and don't shift it about as much as the level (thus creating depth)
-        screen.fill(constants.BLUE)
+        screen.fill(constants.WHITE)
         screen.blit(self.background,(self.world_shift // 3,0))
 
         #Draw everything we have to draw (sprites)
@@ -198,8 +199,15 @@ class BossRoom_1(Level):
         self.background.set_colorkey(constants.RED)
         self.level_limit = -800
         self.bossroom = True
+        # hidden obsidian block to silence potential errors
         level = [
-            [platforms.OBSIDIAN, 0, 0]
+            [platforms.OBSIDIAN, 0, -1]
         ]
         for platform in level:
             block = platforms.BetterPlatform(platform[0], platform[1], platform[2])
+            block.set_pos()
+            self.platform_list.add(block)
+        # test blaster please ignore
+        blaster = bosses.GasterBlaster(400, 100, "right", self.player)
+        blaster.level = self
+        self.enemy_list.add(blaster)

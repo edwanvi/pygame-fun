@@ -4,7 +4,6 @@ import constants, platforms
 import random
 import time
 
-
 class Coin(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -13,7 +12,6 @@ class Coin(pygame.sprite.Sprite):
         # Grab the image for this platform
         self.image = sprite_sheet.get_image(156, 15, 40, 40)
         self.rect = self.image.get_rect()
-
 
 class Basic_Enemy(pygame.sprite.Sprite):
     def __init__(self):

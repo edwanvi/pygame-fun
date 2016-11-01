@@ -40,42 +40,85 @@ class Boss(pygame.sprite.Sprite):
 
 
 class GasterBlast(pygame.sprite.Sprite):
-    def __init__(self, x, y, player):
+    def __init__(self, player, cx, cy):
         super().__init__()
+        # Get image
         sheet = SpriteSheet("gaster_sheet.png")
-        self.image = sheet.get_image()
+        self.image = sheet.get_image(16, 296, 132, 44)
         self.rect = self.image.get_rect()
         self.updates = 0
+        # Get a player so we can rough 'em up
+        self.player = player
+        self.level = self.player.level
+        self.player_g = pygame.sprite.Group()
+        self.player_g.add(self.player)
+        # movement
+        self.change_x = cx
+        self.change_y = cy
+        if self.change_y > 0:
+            newimage = pygame.transform.rotate(self.image, -90)
+            self.image = newimage
+            self.rect = self.image.get_rect()
+        elif self.change_y < 0:
+            newimage = pygame.transform.rotate(self.image, 90)
+            self.image = newimage
+            self.rect = self.image.get_rect()
+
+    def position(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
 
     def update(self):
-        self.updates += 1
-        if self.updates > 85:
+        self.rect.x += self.change_x
+        self.rect.y += self.change_y
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+        for block in block_hit_list:
             self.kill()
-
+        player_hit_list = pygame.sprite.spritecollide(self, self.player_g, False)
+        for player in player_hit_list:
+            self.player.health -= 10
+            self.kill()
 
 class GasterBlaster(pygame.sprite.Sprite):
     def __init__(self, x, y, direction, player):
         super().__init__()
         sheet = SpriteSheet("gaster_sheet.png")
+        self.image = sheet.get_image(28, 8, 140, 192)
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = (x, y)
         self.firing = False
         self.Fired = False
+        self.direction = direction
+        self.player = player
+        self.level = None
+        self.updates = 0
 
     def update(self):
-        if not self.Fired:
+        self.updates += 1
+        if not self.Fired and self.updates > 10:
             if self.direction == "left":
                 #shoot left
-                return GasterBlast(self.rect.x + 10, self.rect.y, self.player)
-            if self.direction == "right":
+                pass
+                #return GasterBlast(self.rect.x + 10, self.rect.y, self.player)
+            elif self.direction == "right":
                 #shoot right
-                return GasterBlast(self.rect.x - 10, self.rect.y, self.player)
-            if self.direction == "up":
-                #shoot up
-                return GasterBlast(self.rect.x, self.rect.y + 10, self.player)
+                gblast = GasterBlast(self.player, 10, 0)
+                gblast.position(self.rect.x+192, self.rect.y-70+22)
+                self.level.enemy_list.add(gblast)
+            elif self.direction == "up":
+                # shoot up
+                gblast = GasterBlast(self.player, 0, -10)
+                gblast.position(self.rect.x+70-22, self.rect.y - 192)
+                self.level.enemy_list.add(gblast)
+            else:
+                gblast = GasterBlast(self.player, 0, 10)
+                gblast.position(self.rect.x + 70 - 22, self.rect.y + 192)
+                self.level.enemy_list.add(gblast)
             self.Fired = True
-        else:
-            # die
+        elif self.Fired:
             self.kill()
-
+        else:
+            pass
 
 class BossW1(Boss):
     def __init__(self, player):
@@ -95,7 +138,6 @@ class BossW1(Boss):
 
     #Use a gaster blaster on the player
     def attack2(self):
-        #DOESN'T IT FEEL
         gasterx = self.player.rect.x
         gastery= self.player.y
         gasterxlogic = bool(random.getrandbits(1))
@@ -114,7 +156,6 @@ class BossW1(Boss):
             print("BLAST IT")
             return GasterBlaster(850, gastery, gasteryDirection, self.player)
     def Run(self):
-        #LIKE OUR TIME IS RUNNING OUT
         attacknumber = random.randint(0, 1)
         if attacknumber == 0:
             self.attack1()

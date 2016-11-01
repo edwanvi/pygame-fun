@@ -22,7 +22,7 @@ def main():
     level_list.append(levels.Level_02(player))
     level_list.append(levels.BossRoom_1(player))
 
-    current_level_no = 0
+    current_level_no = 2
     current_level = level_list[current_level_no]
 
     active_sprite_list = pygame.sprite.Group()

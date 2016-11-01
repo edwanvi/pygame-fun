@@ -102,8 +102,9 @@ class GasterBlaster(pygame.sprite.Sprite):
                 #return GasterBlast(self.rect.x + 10, self.rect.y, self.player)
             elif self.direction == "right":
                 #shoot right
-                pass
-                #return GasterBlast(self.rect.x - 10, self.rect.y, self.player)
+                gblast = GasterBlast(self.player, 10, 0)
+                gblast.position(self.rect.x+192, self.rect.y-70+22)
+                self.level.enemy_list.add(gblast)
             elif self.direction == "up":
                 # shoot up
                 gblast = GasterBlast(self.player, 0, -10)

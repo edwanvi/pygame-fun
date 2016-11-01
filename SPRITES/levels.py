@@ -199,8 +199,9 @@ class BossRoom_1(Level):
         self.background.set_colorkey(constants.RED)
         self.level_limit = -800
         self.bossroom = True
+        # hidden obsidian block to silence potential errors
         level = [
-            [platforms.OBSIDIAN, 0, -100]
+            [platforms.OBSIDIAN, 0, -1]
         ]
         for platform in level:
             block = platforms.BetterPlatform(platform[0], platform[1], platform[2])

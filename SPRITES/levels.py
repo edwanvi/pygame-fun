@@ -208,6 +208,6 @@ class BossRoom_1(Level):
             block.set_pos()
             self.platform_list.add(block)
         # test blaster please ignore
-        blaster = bosses.GasterBlaster(400, 10, "down", self.player)
+        blaster = bosses.GasterBlaster(400, 100, "right", self.player)
         blaster.level = self
         self.enemy_list.add(blaster)

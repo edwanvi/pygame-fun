@@ -85,10 +85,23 @@ class GasterBlaster(pygame.sprite.Sprite):
         sheet = SpriteSheet("gaster_sheet.png")
         self.image = sheet.get_image(28, 8, 140, 192)
         self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = (x, y)
         self.firing = False
         self.Fired = False
         self.direction = direction
+        # rotate image
+        if self.direction == "up":
+            newimage = pygame.transform.rotate(self.image, 180)
+            self.image = newimage
+            self.rect = self.image.get_rect()
+        elif self.direction == "right":
+            newimage = pygame.transform.rotate(self.image, 90)
+            self.image = newimage
+            self.rect = self.image.get_rect()
+        elif self.direction == "left":
+            pass
+        else:
+            pass
+        self.rect.x, self.rect.y = (x, y)
         self.player = player
         self.level = None
         self.updates = 0
